@@ -21,6 +21,7 @@ export type GroupedByCpt = {
 
 let _cache: { ts: number; grouped: GroupedByCpt[] } | null = null;
 const TTL_MS = 60_000; // 60s
+const DEFAULT_REMOTE_RULES_URL = "https://cms.s3.us-east-1.amazonaws.com/rules_grouped_by_cpt.json";
 
 async function readJsonLocal<T>(p: string): Promise<T> {
   const abs = path.resolve(process.cwd(), p);
@@ -88,16 +89,25 @@ export async function loadGrouped(): Promise<GroupedByCpt[]> {
 
   // Priority:
   // 1) RULES_GROUPED_URL (http/https or s3://)
-  // 2) RULES_GROUPED_S3_ARN (arn:aws:s3:::bucket/key)
-  // 3) RULES_GROUPED_PATH (local file path)
-  // 4) default local path
+  // 2) RULES_GROUPED_S3_BUCKET + RULES_GROUPED_S3_KEY
+  // 3) RULES_GROUPED_S3_ARN (arn:aws:s3:::bucket/key)
+  // 4) RULES_GROUPED_PATH (local file path)
+  // 5) default local path (falls back to DEFAULT_REMOTE_RULES_URL if missing)
   const urlOrS3 = process.env.RULES_GROUPED_URL?.trim();
   const s3Arn = process.env.RULES_GROUPED_S3_ARN?.trim();
+  const s3Bucket = process.env.RULES_GROUPED_S3_BUCKET?.trim();
+  const s3Key = process.env.RULES_GROUPED_S3_KEY
+    ? process.env.RULES_GROUPED_S3_KEY.replace(/^\/+/, "").trim()
+    : undefined;
   const localPath = process.env.RULES_GROUPED_PATH || "./data/cms/rules_grouped_by_cpt.json";
 
   let grouped: GroupedByCpt[];
 
   try {
+    if ((s3Bucket && !s3Key) || (!s3Bucket && s3Key)) {
+      throw new Error("RULES_GROUPED_S3_BUCKET and RULES_GROUPED_S3_KEY must be provided together");
+    }
+
     if (urlOrS3) {
       if (/^https?:\/\//i.test(urlOrS3)) {
         grouped = await fetchJsonRemote<GroupedByCpt[]>(urlOrS3);
@@ -107,10 +117,20 @@ export async function loadGrouped(): Promise<GroupedByCpt[]> {
         // Treat anything else as a local path (useful for dev)
         grouped = await readJsonLocal<GroupedByCpt[]>(urlOrS3);
       }
+    } else if (s3Bucket && s3Key) {
+      grouped = await readJsonFromS3<GroupedByCpt[]>(`s3://${s3Bucket}/${s3Key}`);
     } else if (s3Arn) {
       grouped = await readJsonFromS3<GroupedByCpt[]>(s3Arn);
     } else {
-      grouped = await readJsonLocal<GroupedByCpt[]>(localPath);
+      try {
+        grouped = await readJsonLocal<GroupedByCpt[]>(localPath);
+      } catch (err) {
+        if (localPath === "./data/cms/rules_grouped_by_cpt.json") {
+          grouped = await fetchJsonRemote<GroupedByCpt[]>(DEFAULT_REMOTE_RULES_URL);
+        } else {
+          throw err;
+        }
+      }
     }
 
     _cache = { ts: now, grouped };
