@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { StateCode, CheckResponse } from '@/lib/types'
 
 const STATES: StateCode[] = ['TX','AZ','OH','OK','NJ','WA']
+const HIGH_PRIORITY_STATES = new Set<StateCode>(['TX','AZ','OH','OK','NJ','WA'])
 
 export default function SearchForm() {
   const [state, setState] = useState<StateCode>('TX')
@@ -98,8 +99,15 @@ export default function SearchForm() {
   )
 }
 
-function Badge({children}:{children: React.ReactNode}) {
-  return <span className="badge mr-2">{children}</span>
+type BadgeVariant = 'neutral' | 'danger' | 'success';
+
+function Badge({ children, variant = 'neutral' }: { children: React.ReactNode; variant?: BadgeVariant }) {
+  const variantClasses: Record<BadgeVariant, string> = {
+    neutral: '',
+    danger: 'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/60 dark:text-red-200 dark:border-red-700',
+    success: 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/60 dark:text-green-200 dark:border-green-700',
+  };
+  return <span className={`badge mr-2 ${variantClasses[variant]}`.trim()}>{children}</span>
 }
 
 function ResultView({ data }: { data: CheckResponse }) {
@@ -134,12 +142,36 @@ function ResultView({ data }: { data: CheckResponse }) {
       <div className="p-4 border rounded-xl dark:border-neutral-800">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold">{rule.description} <span className="font-mono text-neutral-500">({rule.cpt})</span></h3>
-          <Badge>{rule.requiresPA === 'YES' ? 'PA Required' : rule.requiresPA}</Badge>
+          <Badge
+            variant={
+              rule.requiresPA === 'YES'
+                ? 'danger'
+                : rule.requiresPA === 'NO'
+                ? 'success'
+                : 'neutral'
+            }
+          >
+            {rule.requiresPA === 'YES'
+              ? 'PreAuth Required'
+              : rule.requiresPA === 'NO'
+              ? 'No PreAuth'
+              : rule.requiresPA}
+          </Badge>
         </div>
         <div className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
           <p>Program: {rule.program}</p>
           <p>Effective: {new Date(rule.effectiveDate).toLocaleDateString()}</p>
-          <p>States: {rule.states.map(s => <Badge key={s}>{s}</Badge>)}</p>
+          <p>
+            States:{" "}
+            {rule.states.map(s => (
+              <Badge
+                key={s}
+                variant={rule.requiresPA === 'YES' && HIGH_PRIORITY_STATES.has(s as StateCode) ? 'danger' : 'neutral'}
+              >
+                {s}
+              </Badge>
+            ))}
+          </p>
         </div>
         <div className="mt-3">
           <Checklist ruleId={rule.id} items={rule.documentation} />
