@@ -1,0 +1,116 @@
+{
+  "items": [
+    {
+      "id": "001",
+      "cpt": "27447",
+      "description": "Total knee arthroplasty",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": [
+        "TX",
+        "AZ",
+        "OH",
+        "OK",
+        "NJ",
+        "WA"
+      ],
+      "macCarrier": "Novitas",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        {
+          "id": "dx-notes",
+          "label": "Physician notes detailing diagnosis and functional limitations",
+          "required": true
+        },
+        {
+          "id": "imaging",
+          "label": "Imaging reports supporting necessity (e.g., X-ray/MRI)",
+          "required": true
+        },
+        {
+          "id": "conservative",
+          "label": "Documentation of conservative therapy \u22656 weeks",
+          "required": true
+        },
+        {
+          "id": "consent",
+          "label": "Signed patient consent",
+          "required": false
+        }
+      ],
+      "references": [
+        {
+          "title": "CMS WISeR overview",
+          "url": "https://www.cms.gov/medicare/medicare-fee-for-service-payment/prior-authorization"
+        }
+      ],
+      "lastUpdated": "2025-10-16"
+    },
+    {
+      "id": "002",
+      "cpt": "64568",
+      "description": "Percutaneous implantation of neurostimulator electrodes",
+      "requiresPA": "CONDITIONAL",
+      "program": "WISeR",
+      "states": [
+        "TX",
+        "AZ",
+        "OH",
+        "OK",
+        "NJ",
+        "WA"
+      ],
+      "macCarrier": "NGS",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        {
+          "id": "trial",
+          "label": "Documented successful trial stimulation",
+          "required": true
+        },
+        {
+          "id": "failed-conservative",
+          "label": "Failure of conservative therapy",
+          "required": true
+        }
+      ],
+      "references": [
+        {
+          "title": "CMS WISeR overview",
+          "url": "https://www.cms.gov/medicare/medicare-fee-for-service-payment/prior-authorization"
+        }
+      ],
+      "lastUpdated": "2025-10-16"
+    },
+    {
+      "id": "003",
+      "cpt": "29881",
+      "description": "Knee arthroscopy with meniscectomy",
+      "requiresPA": "NO",
+      "program": "WISeR",
+      "states": [
+        "TX",
+        "AZ",
+        "OH",
+        "OK",
+        "NJ",
+        "WA"
+      ],
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        {
+          "id": "indications",
+          "label": "Indications documented in clinical note",
+          "required": true
+        }
+      ],
+      "references": [
+        {
+          "title": "CMS WISeR overview",
+          "url": "https://www.cms.gov/medicare/medicare-fee-for-service-payment/prior-authorization"
+        }
+      ],
+      "lastUpdated": "2025-10-16"
+    }
+  ]
+}

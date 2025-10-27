@@ -1,0 +1,21 @@
+# Exclude large data and build artifacts from Vercel deployments
+
+# node modules (let Vercel install server-side)
+node_modules/
+
+# Local static export/output folder
+out/
+
+# Large data files used only for local tooling or builds
+data/
+mcd_articles/
+
+# Scripts and raw data not needed at runtime
+scripts/
+
+# Optional: logs, editor settings, env files
+*.log
+.vscode/
+.env
+
+# If you need specific JSON/CSV in the app, remove those lines and whitelist them explicitly

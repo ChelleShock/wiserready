@@ -1,0 +1,26 @@
+cpt,requires_pa,program,effective_date,notes
+22513,TRUE,WISeR,2026-01-01,PVA kyphoplasty/vertebroplasty (VCF)
+22514,TRUE,WISeR,2026-01-01,PVA kyphoplasty/vertebroplasty (VCF)
+22515,TRUE,WISeR,2026-01-01,PVA kyphoplasty/vertebroplasty (VCF)
+62321,TRUE,WISeR,2026-01-01,Epidural steroid injection (cerv/thor)
+62323,TRUE,WISeR,2026-01-01,Epidural steroid injection (lumb/sacral)
+64479,TRUE,WISeR,2026-01-01,"Transforaminal ESI (cerv/thor), single level"
+64480,TRUE,WISeR,2026-01-01,"Transforaminal ESI (cerv/thor), each addl level"
+64483,TRUE,WISeR,2026-01-01,"Transforaminal ESI (lumb/sacral), single level"
+64484,TRUE,WISeR,2026-01-01,"Transforaminal ESI (lumb/sacral), each addl level"
+22551,TRUE,WISeR,2026-01-01,"Cervical fusion, anterior interbody (includes discectomy)"
+22552,TRUE,WISeR,2026-01-01,"Cervical fusion, each additional interspace"
+61885,TRUE,WISeR,2026-01-01,DBS: insertion/replacement of pulse generator
+61886,TRUE,WISeR,2026-01-01,DBS: insertion/replacement of cranial neurostim leads
+61888,TRUE,WISeR,2026-01-01,DBS: revision/removal of cranial neurostim components
+64582,TRUE,WISeR,2026-01-01,Hypoglossal nerve stimulator implantation
+64583,TRUE,WISeR,2026-01-01,Hypoglossal nerve stimulator revision/removal
+C1823,TRUE,WISeR,2026-01-01,"Hypoglossal stim system, implantable pulse generator (HCPCS)"
+64561,TRUE,WISeR,2026-01-01,Percutaneous implantation of neurostim electrode; sacral nerve
+64581,TRUE,WISeR,2026-01-01,Open implantation of neurostim electrode; sacral nerve
+64585,TRUE,WISeR,2026-01-01,Revision/removal of peripheral neurostim electrode array
+64590,TRUE,WISeR,2026-01-01,Insertion/replacement of neurostimulator pulse generator
+64568,TRUE,WISeR,2026-01-01,Implant cranial nerve (vagus) neurostim electrode + pulse generator
+64569,TRUE,WISeR,2026-01-01,Revise/remove cranial nerve (vagus) neurostim components
+53445,TRUE,WISeR,2026-01-01,Insertion of artificial urinary sphincter
+0275T,TRUE,WISeR,2026-01-01,Percutaneous image-guided lumbar decompression (Category III)
