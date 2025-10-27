@@ -22,15 +22,27 @@ export default function SearchForm() {
     try {
       const res = await fetch(`/api/check?${params.toString()}`)
       if (!res.ok) {
-        const data = await res.json()
-        setResult(data)
-        setError(data.disclaimers?.[0] || 'No match')
+        let parsed: any = null
+        try {
+          parsed = await res.json()
+        } catch {
+          parsed = null
+        }
+
+        if (res.status === 404 && parsed?.matchQuality) {
+          setResult(parsed as CheckResponse)
+          setError(parsed.disclaimers?.[0] || 'No match')
+        } else {
+          setResult(null)
+          setError(parsed?.error || `Request failed (${res.status})`)
+        }
       } else {
-        const data = await res.json()
+        const data = (await res.json()) as CheckResponse
         setResult(data)
       }
     } catch (err:any) {
       setError(err.message || 'Network error')
+      setResult(null)
     } finally {
       setLoading(false)
     }
@@ -79,6 +91,10 @@ function Badge({children}:{children: React.ReactNode}) {
 }
 
 function ResultView({ data }: { data: CheckResponse }) {
+  if (!data.matchQuality) {
+    return null
+  }
+
   if (data.matchQuality === 'NONE') {
     return (
       <div className="mt-4">
@@ -93,7 +109,14 @@ function ResultView({ data }: { data: CheckResponse }) {
     )
   }
 
-  const rule = data.rule!
+  const rule = data.rule
+  if (!rule) {
+    return (
+      <div className="mt-4">
+        <p className="text-sm text-red-600">No rule data available for this response.</p>
+      </div>
+    )
+  }
   return (
     <div className="mt-4 space-y-3">
       <div className="p-4 border rounded-xl dark:border-neutral-800">
