@@ -38,7 +38,7 @@ export default function SliceraFooter({ logoSrc }: { logoSrc?: string }) {
                 <MothSwordSVG className="h-7 w-7" />
               )}
             </div>
-            <span className="font-semibold tracking-tight">Slicera</span>
+            {/* <span className="font-semibold tracking-tight">Slicera</span> */}
           </a>
 
           {/* Center: Copy */}
@@ -46,8 +46,8 @@ export default function SliceraFooter({ logoSrc }: { logoSrc?: string }) {
             <span>© 2025 Slicera</span>
             <span className="px-2 text-neutral-400">|</span>
             <span>Crafted with purpose</span>
-            <span className="hidden sm:inline px-2 text-neutral-400">•</span>
-            <span className="block sm:inline">Part of the Slicera product suite</span>
+            {/* <span className="hidden sm:inline px-2 text-neutral-400">•</span> */}
+            {/* <span className="block sm:inline">Part of the Slicera product suite</span> */}
           </p>
 
           {/* Right: Optional slot (edit or remove) */}

@@ -1,4 +1,3 @@
-
 import './globals.css'
 import type { Metadata } from 'next'
 import SliceraFooter from '@/components/SliceraFooter';
@@ -23,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <footer className="mt-16 text-xs text-neutral-500">
             <p>Informational tool only. Verify against current CMS and your MAC.</p>
           </footer>
-          <SliceraFooter/>
+          <SliceraFooter logoSrc="/assets/white_logo.svg" />
         </div>
       </body>
     </html>
