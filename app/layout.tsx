@@ -1,5 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import SliceraFooter from '@/components/SliceraFooter';
 
 export const metadata: Metadata = {
@@ -21,6 +22,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <Script
+          id="plausible-script"
+          src="https://plausible.io/js/pa-elnZlp3cEsh3ASYONwgDe.js"
+          strategy="lazyOnload"
+        />
+        <Script id="plausible-init" strategy="lazyOnload">
+          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+plausible.init();`}
+        </Script>
         <div className="container py-8">
           <header className="mb-8">
             <h1 className="text-3xl font-semibold tracking-tight">WISeReady</h1>
