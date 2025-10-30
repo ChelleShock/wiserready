@@ -83,6 +83,14 @@ export default function SearchForm() {
             )}
           </button>
           <span className="text-xs text-neutral-500">Tip: Try CPT first for exact results.</span>
+          <a
+            className="text-xs text-blue-600 hover:underline"
+            href="https://www.buymeacoffee.com/michellereeves"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Buy me a coffee
+          </a>
         </div>
       </form>
 
