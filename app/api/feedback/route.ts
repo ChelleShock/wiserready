@@ -18,6 +18,7 @@ const feedbackSchema = z.object({
 export async function POST(req: NextRequest) {
   let payload: unknown
   try {
+    payload = await req.json()
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
   }
