@@ -20,4 +20,5 @@ coverage/
 tmp/
 
 data/cms/*.json
+data/feedback.db*
 *.csv
