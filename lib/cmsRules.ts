@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-import staticFallback from '../data/cms/rules_grouped_by_cpt.json' assert { type: 'json' }
+import staticFallback from '../data/cms/rules_grouped_by_cpt.json'
 
 type CmsArticle = {
   article_id: string
