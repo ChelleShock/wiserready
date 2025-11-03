@@ -187,6 +187,15 @@ function ResultView({ data }: { data: CheckResponse }) {
         <div className="mt-3">
           <Feedback ruleId={rule.id} />
         </div>
+        {data.disclaimers?.length ? (
+          <div className="mt-4 text-xs text-neutral-500 dark:text-neutral-400">
+            <ul className="list-disc pl-4 space-y-1">
+              {data.disclaimers.map((note, index) => (
+                <li key={index}>{note}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     </div>
   )

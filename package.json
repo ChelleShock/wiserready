@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "import:rules": "node scripts/import-rules-to-supabase.mjs"
+    "import:rules": "node scripts/import-rules-to-supabase.mjs",
+    "query:cms": "node scripts/query-cms-rule.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.917.0",

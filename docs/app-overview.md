@@ -36,10 +36,11 @@ The service role key is required because writes happen server-side (feedback ins
 
 ## Scripts & data seeding
 
-The repository keeps a lightweight seed file at `data/rules.json`. Two scripts handle moving data between the file and Supabase:
+The repository keeps a lightweight seed file at `data/rules.json` aligned to the WISeR notice service list (nerve stimulators, spinal procedures, arthroscopy, skin/tissue substitutes, etc.). The full CMS export with all CPTs (including those not subject to WISeR prior auth) remains available under `data/cms/` (`rules_grouped_by_cpt.json`, `rules_joined.json`, `rules_joined.csv`). Two scripts handle moving data between the seed file and Supabase:
 
 - `npm run import:rules` — executes `scripts/import-rules-to-supabase.mjs`. It loads the JSON, truncates `rule*` tables, inserts new rows, and normalizes the `requires_pa` values.
 - (Optional) Add an export script if you need to pull Supabase changes back into `data/rules.json`.
+- `npm run query:cms -- <CPT> [--state=XX]` — quick lookup inside `data/cms/rules_grouped_by_cpt.json` for codes that fall outside the WISeR prior-auth list.
 
 To refresh Supabase with the current seed data:
 
@@ -53,7 +54,7 @@ The script reads env vars via `@next/env`, so ensure `.env.local` is populated f
 
 | Route | Method | Description |
 | --- | --- | --- |
-| `/api/check` | GET | Accepts `state`, `cpt`, and optional `keyword`. Uses Supabase to fetch an exact or fuzzy match and returns suggestions on miss. |
+| `/api/check` | GET | Accepts `state`, `cpt`, and optional `keyword`. Uses Supabase to fetch an exact or fuzzy match; if no WISeR record exists, it surfaces a read-only view sourced from `data/cms/rules_grouped_by_cpt.json` so non-pilot CPTs still return context. |
 | `/api/rules` | GET | Lists rules (optionally filtered by `cpt` or `state`). |
 | `/api/feedback` | POST | Validates `{ ruleId, signal, comment }`, writes to Supabase, returns stored record metadata. |
 

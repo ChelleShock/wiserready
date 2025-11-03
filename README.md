@@ -22,7 +22,7 @@ SUPABASE_SERVICE_ROLE_KEY=…service_role key…
 Restart `npm run dev` after adding or changing any env vars.
 
 ## Data sources
-- Rules are loaded from `data/rules.json` (demo dataset).
+- Rules are loaded from `data/rules.json` (demo dataset) and cover the WISeR-listed services (nerve stimulators, spine procedures, arthroscopic knee, skin/tissue substitutes, etc.). The full CMS export (all CPTs, including codes that are not part of the WISeR prior-auth list) lives in `data/cms/` (`rules_grouped_by_cpt.json`, `rules_joined.json`, `rules_joined.csv`).
 - Feedback is written to the Supabase `feedback` table. Use the Supabase dashboard/SQL editor or visit `/admin/feedback` to review recent submissions.
 
 ## Importing rules into Supabase
@@ -39,6 +39,10 @@ The script:
 - Inserts the current data from `data/rules.json` (override with `RULES_JSON_PATH` if needed)
 
 Ensure `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` point at the project you want to refresh before running.
+
+## Utilities
+
+- `npm run query:cms -- <CPT> [--state=XX]` — inspect the raw CMS export (from `data/cms/rules_grouped_by_cpt.json`) for codes that fall outside the WISeR prior-auth list.
 
 ## Documentation
 

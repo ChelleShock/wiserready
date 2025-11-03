@@ -1,116 +1,289 @@
 {
   "items": [
     {
-      "id": "001",
-      "cpt": "27447",
-      "description": "Total knee arthroplasty",
+      "id": "electrical-nerve-stimulator",
+      "cpt": "64553",
+      "description": "Electrical nerve stimulator – percutaneous implantation (NCD 160.7)",
       "requiresPA": "YES",
       "program": "WISeR",
-      "states": [
-        "TX",
-        "AZ",
-        "OH",
-        "OK",
-        "NJ",
-        "WA"
-      ],
-      "macCarrier": "Novitas",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
       "effectiveDate": "2026-01-01",
       "documentation": [
-        {
-          "id": "dx-notes",
-          "label": "Physician notes detailing diagnosis and functional limitations",
-          "required": true
-        },
-        {
-          "id": "imaging",
-          "label": "Imaging reports supporting necessity (e.g., X-ray/MRI)",
-          "required": true
-        },
-        {
-          "id": "conservative",
-          "label": "Documentation of conservative therapy \u22656 weeks",
-          "required": true
-        },
-        {
-          "id": "consent",
-          "label": "Signed patient consent",
-          "required": false
-        }
+        { "id": "dx-notes", "label": "Neurologist evaluation documenting refractory pain", "required": true },
+        { "id": "conservative-care", "label": "Evidence of failed conservative therapy 6 months", "required": true },
+        { "id": "trial-success", "label": "Successful stimulator trial demonstrating pain relief", "required": true }
       ],
       "references": [
-        {
-          "title": "CMS WISeR overview",
-          "url": "https://www.cms.gov/medicare/medicare-fee-for-service-payment/prior-authorization"
-        }
+        { "title": "NCD 160.7 – Electrical Nerve Stimulators", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=63" }
       ],
-      "lastUpdated": "2025-10-16"
+      "lastUpdated": "2025-07-01"
     },
     {
-      "id": "002",
+      "id": "sacral-nerve-stimulation",
+      "cpt": "64581",
+      "description": "Sacral nerve stimulation for urinary incontinence (NCD 230.18)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "urology-eval", "label": "Urology notes confirming refractory urinary incontinence", "required": true },
+        { "id": "therapy-failure", "label": "Documentation of failed behavioral/medication therapy 6 months", "required": true },
+        { "id": "test-phase", "label": "Results of percutaneous test phase demonstrating 50 percent improvement", "required": true }
+      ],
+      "references": [
+        { "title": "NCD 230.18 – Sacral Nerve Stimulation", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=249" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "phrenic-nerve-stimulator",
+      "cpt": "33274",
+      "description": "Phrenic nerve stimulation for central sleep apnea (NCD 160.19)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "sleep-study", "label": "Sleep study confirming central sleep apnea diagnosis", "required": true },
+        { "id": "cpap-intolerance", "label": "Evidence of CPAP or BiPAP failure or intolerance", "required": true },
+        { "id": "cardiology-clearance", "label": "Cardiology clearance for implant procedure", "required": true }
+      ],
+      "references": [
+        { "title": "NCD 160.19 – Phrenic Nerve Stimulator", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=377" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "deep-brain-stimulation",
+      "cpt": "61885",
+      "description": "Deep brain stimulation for essential tremor and Parkinson’s disease (NCD 160.24)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "neuro-eval", "label": "Movement disorder neurologist evaluation", "required": true },
+        { "id": "med-failure", "label": "Documentation of optimized medication therapy failure", "required": true },
+        { "id": "imaging", "label": "Pre-operative brain imaging for target planning", "required": true }
+      ],
+      "references": [
+        { "title": "NCD 160.24 – Deep Brain Stimulation", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=338" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "vagus-nerve-stimulation",
       "cpt": "64568",
-      "description": "Percutaneous implantation of neurostimulator electrodes",
-      "requiresPA": "CONDITIONAL",
+      "description": "Vagus nerve stimulation (NCD 160.18)",
+      "requiresPA": "YES",
       "program": "WISeR",
-      "states": [
-        "TX",
-        "AZ",
-        "OH",
-        "OK",
-        "NJ",
-        "WA"
-      ],
-      "macCarrier": "NGS",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
       "effectiveDate": "2026-01-01",
       "documentation": [
-        {
-          "id": "trial",
-          "label": "Documented successful trial stimulation",
-          "required": true
-        },
-        {
-          "id": "failed-conservative",
-          "label": "Failure of conservative therapy",
-          "required": true
-        }
+        { "id": "epilepsy-dx", "label": "Neurologist documentation of medically refractory seizures", "required": true },
+        { "id": "antiepileptic", "label": "Failure of two or more antiepileptic drug regimens", "required": true },
+        { "id": "surgery-consent", "label": "Shared decision-making documentation and consent", "required": true }
       ],
       "references": [
-        {
-          "title": "CMS WISeR overview",
-          "url": "https://www.cms.gov/medicare/medicare-fee-for-service-payment/prior-authorization"
-        }
+        { "title": "NCD 160.18 – Vagus Nerve Stimulation", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=230" }
       ],
-      "lastUpdated": "2025-10-16"
+      "lastUpdated": "2025-07-01"
     },
     {
-      "id": "003",
-      "cpt": "29881",
-      "description": "Knee arthroscopy with meniscectomy",
-      "requiresPA": "NO",
+      "id": "induced-lesions-nerve-tracts",
+      "cpt": "61720",
+      "description": "Induced lesions of nerve tracts (NCD 160.1)",
+      "requiresPA": "YES",
       "program": "WISeR",
-      "states": [
-        "TX",
-        "AZ",
-        "OH",
-        "OK",
-        "NJ",
-        "WA"
-      ],
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
       "effectiveDate": "2026-01-01",
       "documentation": [
-        {
-          "id": "indications",
-          "label": "Indications documented in clinical note",
-          "required": true
-        }
+        { "id": "neurosurgery-assessment", "label": "Neurosurgeon documentation of indication (pain or movement disorder)", "required": true },
+        { "id": "conservative-failure", "label": "Evidence of failed conservative or less invasive options", "required": true },
+        { "id": "imaging-target", "label": "Imaging supporting lesion target and safety", "required": true }
       ],
       "references": [
-        {
-          "title": "CMS WISeR overview",
-          "url": "https://www.cms.gov/medicare/medicare-fee-for-service-payment/prior-authorization"
-        }
+        { "title": "NCD 160.1 – Induced Lesions of Nerve Tracts", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=56" }
       ],
-      "lastUpdated": "2025-10-16"
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "epidural-steroid-injection",
+      "cpt": "62323",
+      "description": "Epidural steroid injections for pain management (LCD set)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "pain-dx", "label": "Pain specialist documentation of radiculopathy or spinal stenosis", "required": true },
+        { "id": "imaging-correlate", "label": "Imaging correlating with symptoms", "required": true },
+        { "id": "therapy-log", "label": "Conservative therapy log showing six weeks of treatment", "required": true }
+      ],
+      "references": [
+        { "title": "LCDs – Epidural Steroid Injections", "url": "https://www.cms.gov/medicare-coverage-database/" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "percutaneous-vertebral-augmentation",
+      "cpt": "22513",
+      "description": "Percutaneous vertebral augmentation for vertebral compression fracture (LCD set)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "fracture-proof", "label": "Recent imaging confirming acute compression fracture", "required": true },
+        { "id": "medical-management", "label": "Documentation of failed medical management", "required": true },
+        { "id": "bone-health", "label": "Assessment of osteoporosis management plan", "required": false }
+      ],
+      "references": [
+        { "title": "LCDs – Percutaneous Vertebral Augmentation", "url": "https://www.cms.gov/medicare-coverage-database/" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "cervical-fusion",
+      "cpt": "22551",
+      "description": "Cervical fusion under LCD coverage criteria",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "neuro-deficit", "label": "Neurologic deficit or intractable pain documentation", "required": true },
+        { "id": "imaging-fusion", "label": "Imaging showing instability, stenosis, or deformity", "required": true },
+        { "id": "nonoperative", "label": "Failure of 12 weeks conservative therapy", "required": true }
+      ],
+      "references": [
+        { "title": "LCDs – Cervical Fusion", "url": "https://www.cms.gov/medicare-coverage-database/" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "arthroscopic-knee-debridement",
+      "cpt": "29870",
+      "description": "Arthroscopic lavage and debridement for osteoarthritic knee (NCD 150.9)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "ortho-eval", "label": "Orthopedic evaluation documenting mechanical symptoms", "required": true },
+        { "id": "imaging-oa", "label": "Radiographs confirming osteoarthritis severity", "required": true },
+        { "id": "conservative-failed", "label": "Failure of physical therapy and injections 12 weeks", "required": true }
+      ],
+      "references": [
+        { "title": "NCD 150.9 – Arthroscopic Lavage and Debridement", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=120" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "hypoglossal-nerve-stimulation",
+      "cpt": "64582",
+      "description": "Hypoglossal nerve stimulation for obstructive sleep apnea (LCD set)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "ahi-score", "label": "Polysomnography showing apnea-hypopnea index within LCD thresholds", "required": true },
+        { "id": "cpap-failure", "label": "Documented CPAP failure or intolerance", "required": true },
+        { "id": "endo-eval", "label": "Drug-induced sleep endoscopy assessing airway collapse pattern", "required": true }
+      ],
+      "references": [
+        { "title": "LCDs – Hypoglossal Nerve Stimulation", "url": "https://www.cms.gov/medicare-coverage-database/" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "incontinence-control-device",
+      "cpt": "64590",
+      "description": "Incontinence control device implantation (NCD 230.10)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "urogyn-eval", "label": "Urogynecology evaluation documenting stress incontinence severity", "required": true },
+        { "id": "conservative", "label": "Pelvic floor therapy or behavioral treatment failure", "required": true },
+        { "id": "device-education", "label": "Patient counseling on device risks and maintenance", "required": false }
+      ],
+      "references": [
+        { "title": "NCD 230.10 – Incontinence Control Devices", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=28" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "impotence-treatment",
+      "cpt": "54405",
+      "description": "Diagnosis and treatment of impotence – multi-component penile prosthesis (NCD 230.4)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "andrology-eval", "label": "Andrology or urology documentation of organic impotence", "required": true },
+        { "id": "therapy-failed", "label": "Evidence of failed pharmacologic or behavioral therapy", "required": true },
+        { "id": "psych-assessment", "label": "Psychological clearance when indicated", "required": false }
+      ],
+      "references": [
+        { "title": "NCD 230.4 – Diagnosis and Treatment of Impotence", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=37" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "lumbar-decompression",
+      "cpt": "0275T",
+      "description": "Percutaneous image-guided lumbar decompression (NCD 150.13)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "stenosis-proof", "label": "MRI confirming lumbar spinal stenosis with ligamentum flavum hypertrophy", "required": true },
+        { "id": "conservative-therapy", "label": "Failure of conservative management 6 months", "required": true },
+        { "id": "walking-test", "label": "Functional assessment showing neurogenic claudication", "required": true }
+      ],
+      "references": [
+        { "title": "NCD 150.13 – Percutaneous Lumbar Decompression", "url": "https://www.cms.gov/medicare-coverage-database/view/ncd.aspx?ncdid=362" }
+      ],
+      "lastUpdated": "2025-07-01"
+    },
+    {
+      "id": "skin-tissue-substitutes",
+      "cpt": "Q4101",
+      "description": "Skin and tissue substitutes for chronic lower extremity wounds (LCD set)",
+      "requiresPA": "YES",
+      "program": "WISeR",
+      "states": ["TX", "AZ", "OH", "OK", "NJ", "WA"],
+      "macCarrier": "WISeR Pilot Jurisdictions",
+      "effectiveDate": "2026-01-01",
+      "documentation": [
+        { "id": "wound-doc", "label": "Wound measurements and staging over four weeks", "required": true },
+        { "id": "debridement", "label": "Evidence of regular debridement and infection control", "required": true },
+        { "id": "vascular-assessment", "label": "Vascular assessment documenting adequate perfusion", "required": true }
+      ],
+      "references": [
+        { "title": "LCDs – Skin and Tissue Substitutes", "url": "https://www.cms.gov/medicare-coverage-database/" }
+      ],
+      "lastUpdated": "2025-07-01"
     }
   ]
 }
