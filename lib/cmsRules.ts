@@ -28,18 +28,32 @@ const CACHE_TTL_MS = 5 * 60 * 1000
 const DATA_PATH =
   process.env.RULES_GROUPED_PATH || './data/cms/rules_grouped_by_cpt.json'
 
+const HTTP_REGEX = /^https?:\/\//i
+
 async function readCmsData(): Promise<CmsRuleRecord[]> {
   const now = Date.now()
   if (cache && now - cache.loadedAt < CACHE_TTL_MS) {
     return cache.records
   }
 
-  const filePath = path.resolve(process.cwd(), DATA_PATH)
-  const file = await fs.readFile(filePath, 'utf-8')
-  const parsed = JSON.parse(file)
+  let parsed: unknown
+
+  if (HTTP_REGEX.test(DATA_PATH)) {
+    const res = await fetch(DATA_PATH)
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch CMS data from ${DATA_PATH}: ${res.status} ${res.statusText}`,
+      )
+    }
+    parsed = await res.json()
+  } else {
+    const filePath = path.resolve(process.cwd(), DATA_PATH)
+    const file = await fs.readFile(filePath, 'utf-8')
+    parsed = JSON.parse(file)
+  }
 
   if (!Array.isArray(parsed)) {
-    throw new Error(`CMS data at ${filePath} is not an array`)
+    throw new Error(`CMS data source is not an array (source: ${DATA_PATH})`)
   }
 
   cache = {
