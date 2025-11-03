@@ -25,10 +25,26 @@ type CachedData = {
 let cache: CachedData | null = null
 const CACHE_TTL_MS = 5 * 60 * 1000
 
-const DATA_PATH =
-  process.env.RULES_GROUPED_PATH || './data/cms/rules_grouped_by_cpt.json'
+const DEFAULT_LOCAL_PATH = './data/cms/rules_grouped_by_cpt.json'
+const PRIMARY_SOURCE = process.env.RULES_GROUPED_PATH || DEFAULT_LOCAL_PATH
+const FALLBACK_SOURCE =
+  process.env.RULES_GROUPED_FALLBACK_PATH || DEFAULT_LOCAL_PATH
 
 const HTTP_REGEX = /^https?:\/\//i
+
+async function loadSource(source: string): Promise<unknown> {
+  if (HTTP_REGEX.test(source)) {
+    const res = await fetch(source, { cache: 'no-store' })
+    if (!res.ok) {
+      throw new Error(`Failed to fetch ${source}: ${res.status} ${res.statusText}`)
+    }
+    return res.json()
+  }
+
+  const filePath = path.resolve(process.cwd(), source)
+  const file = await fs.readFile(filePath, 'utf-8')
+  return JSON.parse(file)
+}
 
 async function readCmsData(): Promise<CmsRuleRecord[]> {
   const now = Date.now()
@@ -38,22 +54,27 @@ async function readCmsData(): Promise<CmsRuleRecord[]> {
 
   let parsed: unknown
 
-  if (HTTP_REGEX.test(DATA_PATH)) {
-    const res = await fetch(DATA_PATH)
-    if (!res.ok) {
-      throw new Error(
-        `Failed to fetch CMS data from ${DATA_PATH}: ${res.status} ${res.statusText}`,
-      )
+  try {
+    parsed = await loadSource(PRIMARY_SOURCE)
+  } catch (primaryError) {
+    if (PRIMARY_SOURCE !== FALLBACK_SOURCE) {
+      parsed = await loadSource(FALLBACK_SOURCE).catch((fallbackError) => {
+        throw new Error(
+          [
+            (primaryError as Error).message,
+            (fallbackError as Error).message,
+          ].join(' | '),
+        )
+      })
+    } else {
+      throw primaryError
     }
-    parsed = await res.json()
-  } else {
-    const filePath = path.resolve(process.cwd(), DATA_PATH)
-    const file = await fs.readFile(filePath, 'utf-8')
-    parsed = JSON.parse(file)
   }
 
   if (!Array.isArray(parsed)) {
-    throw new Error(`CMS data source is not an array (source: ${DATA_PATH})`)
+    throw new Error(
+      `CMS data source is not an array (source: ${PRIMARY_SOURCE})`,
+    )
   }
 
   cache = {

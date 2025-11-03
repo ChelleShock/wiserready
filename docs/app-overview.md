@@ -30,6 +30,10 @@ Set environment variables in `.env.local` (for dev) and in your host (Vercel) so
 ```
 SUPABASE_URL=https://<project-ref>.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=<service_role_key>
+
+# Optional: override CMS dataset locations
+# RULES_GROUPED_PATH=<public URL or path>
+# RULES_GROUPED_FALLBACK_PATH=./data/cms/rules_grouped_by_cpt.json
 ```
 
 The service role key is required because writes happen server-side (feedback insert, rules import). Restart `npm run dev` after changing env vars.
@@ -54,7 +58,7 @@ The script reads env vars via `@next/env`, so ensure `.env.local` is populated f
 
 | Route | Method | Description |
 | --- | --- | --- |
-| `/api/check` | GET | Accepts `state`, `cpt`, and optional `keyword`. Uses Supabase to fetch an exact or fuzzy match; if no WISeR record exists, it surfaces a read-only view sourced from `data/cms/rules_grouped_by_cpt.json` so non-pilot CPTs still return context. |
+| `/api/check` | GET | Accepts `state`, `cpt`, and optional `keyword`. Uses Supabase to fetch an exact or fuzzy match; if no WISeR record exists, it surfaces a read-only view sourced from `data/cms/rules_grouped_by_cpt.json` (or `RULES_GROUPED_PATH` with local fallback) so non-pilot CPTs still return context. |
 | `/api/rules` | GET | Lists rules (optionally filtered by `cpt` or `state`). |
 | `/api/feedback` | POST | Validates `{ ruleId, signal, comment }`, writes to Supabase, returns stored record metadata. |
 

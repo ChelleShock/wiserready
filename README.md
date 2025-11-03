@@ -17,6 +17,10 @@ Create `.env.local` in the project root before starting the dev server:
 ```env
 SUPABASE_URL=…your Supabase project URL…
 SUPABASE_SERVICE_ROLE_KEY=…service_role key…
+
+# Optional overrides
+# RULES_GROUPED_PATH=https://public-bucket/rules_grouped_by_cpt.json
+# RULES_GROUPED_FALLBACK_PATH=./data/cms/rules_grouped_by_cpt.json
 ```
 
 Restart `npm run dev` after adding or changing any env vars.
