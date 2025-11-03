@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-import staticFallback from '@/data/cms/rules_grouped_by_cpt.json'
+import staticFallback from '../data/cms/rules_grouped_by_cpt.json' assert { type: 'json' }
 
 type CmsArticle = {
   article_id: string
@@ -27,8 +27,11 @@ type CachedData = {
 let cache: CachedData | null = null
 const CACHE_TTL_MS = 5 * 60 * 1000
 
+const DEFAULT_REMOTE_URL =
+  'https://cms.s3.us-east-1.amazonaws.com/rules_grouped_by_cpt.json'
 const DEFAULT_LOCAL_PATH = './data/cms/rules_grouped_by_cpt.json'
-const PRIMARY_SOURCE = process.env.RULES_GROUPED_PATH || DEFAULT_LOCAL_PATH
+const PRIMARY_SOURCE =
+  process.env.RULES_GROUPED_PATH || DEFAULT_REMOTE_URL
 const FALLBACK_SOURCE =
   process.env.RULES_GROUPED_FALLBACK_PATH || DEFAULT_LOCAL_PATH
 const STATIC_FALLBACK = staticFallback as CmsRuleRecord[]

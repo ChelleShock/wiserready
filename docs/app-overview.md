@@ -40,7 +40,13 @@ The service role key is required because writes happen server-side (feedback ins
 
 ## Scripts & data seeding
 
-The repository keeps a lightweight seed file at `data/rules.json` aligned to the WISeR notice service list (nerve stimulators, spinal procedures, arthroscopy, skin/tissue substitutes, etc.). The full CMS export with all CPTs (including those not subject to WISeR prior auth) remains available under `data/cms/` (`rules_grouped_by_cpt.json`, `rules_joined.json`, `rules_joined.csv`). Two scripts handle moving data between the seed file and Supabase:
+The repository keeps a lightweight seed file at `data/rules.json` aligned to the WISeR notice service list (nerve stimulators, spinal procedures, arthroscopy, skin/tissue substitutes, etc.). The full CMS export with all CPTs (including those not subject to WISeR prior auth) remains available under `data/cms/` (`rules_grouped_by_cpt.json`, `rules_joined.json`, `rules_joined.csv`) and is mirrored publicly at:
+
+- `https://cms.s3.us-east-1.amazonaws.com/rules_grouped_by_cpt.json`
+- `https://cms.s3.us-east-1.amazonaws.com/rules_joined.json`
+- `https://cms.s3.us-east-1.amazonaws.com/rules_joined.csv`
+
+Two scripts handle moving data between the seed file and Supabase:
 
 - `npm run import:rules` — executes `scripts/import-rules-to-supabase.mjs`. It loads the JSON, truncates `rule*` tables, inserts new rows, and normalizes the `requires_pa` values.
 - (Optional) Add an export script if you need to pull Supabase changes back into `data/rules.json`.
