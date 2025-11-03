@@ -27,11 +27,9 @@ const CACHE_TTL_MS = 5 * 60 * 1000
 
 const DEFAULT_REMOTE_URL =
   'https://cms.s3.us-east-1.amazonaws.com/rules_grouped_by_cpt.json'
-const DEFAULT_LOCAL_PATH = './data/cms/rules_grouped_by_cpt.json'
 const PRIMARY_SOURCE =
   process.env.RULES_GROUPED_PATH || DEFAULT_REMOTE_URL
-const FALLBACK_SOURCE =
-  process.env.RULES_GROUPED_FALLBACK_PATH || DEFAULT_LOCAL_PATH
+const FALLBACK_SOURCE = process.env.RULES_GROUPED_FALLBACK_PATH
 
 const HTTP_REGEX = /^https?:\/\//i
 
@@ -68,25 +66,19 @@ async function readCmsData(): Promise<CmsRuleRecord[]> {
   try {
     records = await loadSource(PRIMARY_SOURCE)
   } catch (primaryError) {
-    try {
-      records = await loadSource(FALLBACK_SOURCE)
-    } catch (fallbackError) {
+    if (FALLBACK_SOURCE) {
       try {
-        const fallbackModule = await import('../data/cms/rules_grouped_by_cpt.json')
-        const fallbackData = fallbackModule.default
-        if (!Array.isArray(fallbackData)) {
-          throw new Error('Static CMS fallback is not an array')
-        }
-        records = fallbackData as CmsRuleRecord[]
-      } catch (staticError) {
+        records = await loadSource(FALLBACK_SOURCE)
+      } catch (fallbackError) {
         throw new Error(
           [
             (primaryError as Error).message,
             (fallbackError as Error).message,
-            (staticError as Error).message,
           ].join(' | '),
         )
       }
+    } else {
+      throw primaryError
     }
   }
 
