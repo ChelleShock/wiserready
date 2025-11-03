@@ -37,6 +37,10 @@ plausible.init();`}
             <p className="text-sm text-neutral-500">
               Check whether a Medicare procedure requires prior authorization under the WISeR pilot and get a documentation checklist.
             </p>
+            <div className="mt-3 text-xs text-neutral-600 dark:text-neutral-400 space-y-1">
+              <p><strong>Program scope:</strong> 6-year WISeR model starting Jan&nbsp;1,&nbsp;2026 across TX, AZ, OH, OK, NJ, WA.</p>
+              <p>MAC jurisdictions in scope: JH, JL, JF, J15.</p>
+            </div>
           </header>
           {children}
           <footer className="mt-16 text-xs text-neutral-500">

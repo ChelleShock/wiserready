@@ -7,7 +7,9 @@ export default function Page() {
     <main className="space-y-6">
       <SearchForm />
       <section className="text-sm text-neutral-600 dark:text-neutral-400">
-        <p>States supported in this demo: TX, AZ, OH, OK, NJ, WA.</p>
+        <p>
+          WISeR pilot runs January&nbsp;1,&nbsp;2026&nbsp;–&nbsp;December&nbsp;31,&nbsp;2031 with coverage in Texas (JH), Arizona (JF), Ohio (J15), Oklahoma (JH), New Jersey (JL), and Washington (JF).
+        </p>
       </section>
     </main>
   )
