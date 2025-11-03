@@ -27,9 +27,30 @@ const CACHE_TTL_MS = 5 * 60 * 1000
 
 const DEFAULT_REMOTE_URL =
   'https://cms.s3.us-east-1.amazonaws.com/rules_grouped_by_cpt.json'
+
+function normalizeSource(value: string | undefined | null): string | undefined {
+  if (!value) return undefined
+  const trimmed = value.trim()
+  const urlMatch = trimmed.match(/https?:\/\/.*/i)
+  if (urlMatch) {
+    return urlMatch[0]
+  }
+  if (trimmed.startsWith('RULES_GROUPED_PATH=')) {
+    return normalizeSource(trimmed.slice('RULES_GROUPED_PATH='.length))
+  }
+  if (trimmed.startsWith('RULES_GROUPED_FALLBACK_PATH=')) {
+    return normalizeSource(
+      trimmed.slice('RULES_GROUPED_FALLBACK_PATH='.length),
+    )
+  }
+  return trimmed
+}
+
 const PRIMARY_SOURCE =
-  process.env.RULES_GROUPED_PATH || DEFAULT_REMOTE_URL
-const FALLBACK_SOURCE = process.env.RULES_GROUPED_FALLBACK_PATH
+  normalizeSource(process.env.RULES_GROUPED_PATH) || DEFAULT_REMOTE_URL
+const FALLBACK_SOURCE = normalizeSource(
+  process.env.RULES_GROUPED_FALLBACK_PATH,
+)
 
 const HTTP_REGEX = /^https?:\/\//i
 
