@@ -1,30 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
-import { loadGrouped } from "@/lib/rulesLoader";
+import {
+  coerceStateCode,
+  fetchRules,
+  isKnownStateCode,
+} from '@/lib/rulesService'
+import { StateCode } from '@/lib/types'
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const cpt = (searchParams.get("cpt") || "").trim();
-  const state = (searchParams.get("state") || "").trim().toUpperCase();
+  const { searchParams } = new URL(req.url)
+  const cpt = (searchParams.get('cpt') || '').trim()
+  const stateParam = searchParams.get('state')
 
-  let data;
   try {
-    data = await loadGrouped();
-  } catch (err: any) {
-    return NextResponse.json({ error: err?.message || String(err) }, { status: 500 });
+    let rules = await fetchRules()
+
+    if (cpt) {
+      rules = rules.filter((rule) => rule.cpt === cpt)
+    }
+
+    if (stateParam && isKnownStateCode(stateParam)) {
+      const state = coerceStateCode(stateParam) as StateCode
+      rules = rules.filter((rule) => rule.states.includes(state))
+    }
+
+    return NextResponse.json({ items: rules, count: rules.length })
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : 'Failed to load rule listings'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
-
-  // Filter by CPT
-  let items = cpt ? data.filter(d => d.cpt === cpt) : data;
-
-  // Filter by state (if provided)
-  if (state) {
-    items = items
-      .map(d => ({
-        ...d,
-        articles: d.articles.filter(a => a.state.toUpperCase() === state),
-      }))
-      .filter(d => d.articles.length > 0);
-  }
-
-  return NextResponse.json({ items, count: items.length });
 }
