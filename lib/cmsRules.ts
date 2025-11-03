@@ -71,12 +71,22 @@ async function readCmsData(): Promise<CmsRuleRecord[]> {
     try {
       records = await loadSource(FALLBACK_SOURCE)
     } catch (fallbackError) {
-      throw new Error(
-        [
-          (primaryError as Error).message,
-          (fallbackError as Error).message,
-        ].join(' | '),
-      )
+      try {
+        const fallbackModule = await import('../data/cms/rules_grouped_by_cpt.json')
+        const fallbackData = fallbackModule.default
+        if (!Array.isArray(fallbackData)) {
+          throw new Error('Static CMS fallback is not an array')
+        }
+        records = fallbackData as CmsRuleRecord[]
+      } catch (staticError) {
+        throw new Error(
+          [
+            (primaryError as Error).message,
+            (fallbackError as Error).message,
+            (staticError as Error).message,
+          ].join(' | '),
+        )
+      }
     }
   }
 
