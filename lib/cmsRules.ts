@@ -1,8 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-import staticFallback from '../data/cms/rules_grouped_by_cpt.json'
-
 type CmsArticle = {
   article_id: string
   article_title: string
@@ -34,7 +32,6 @@ const PRIMARY_SOURCE =
   process.env.RULES_GROUPED_PATH || DEFAULT_REMOTE_URL
 const FALLBACK_SOURCE =
   process.env.RULES_GROUPED_FALLBACK_PATH || DEFAULT_LOCAL_PATH
-const STATIC_FALLBACK = staticFallback as CmsRuleRecord[]
 
 const HTTP_REGEX = /^https?:\/\//i
 
@@ -68,30 +65,18 @@ async function readCmsData(): Promise<CmsRuleRecord[]> {
 
   let records: CmsRuleRecord[] | null = null
 
-  // Try primary source (URL or file)
   try {
     records = await loadSource(PRIMARY_SOURCE)
   } catch (primaryError) {
-    if (PRIMARY_SOURCE !== FALLBACK_SOURCE) {
-      try {
-        records = await loadSource(FALLBACK_SOURCE)
-      } catch (fallbackError) {
-        // Last chance: static bundle
-        if (STATIC_FALLBACK?.length) {
-          records = STATIC_FALLBACK
-        } else {
-          throw new Error(
-            [
-              (primaryError as Error).message,
-              (fallbackError as Error).message,
-            ].join(' | '),
-          )
-        }
-      }
-    } else if (STATIC_FALLBACK?.length) {
-      records = STATIC_FALLBACK
-    } else {
-      throw primaryError
+    try {
+      records = await loadSource(FALLBACK_SOURCE)
+    } catch (fallbackError) {
+      throw new Error(
+        [
+          (primaryError as Error).message,
+          (fallbackError as Error).message,
+        ].join(' | '),
+      )
     }
   }
 
